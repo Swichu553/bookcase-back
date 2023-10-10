@@ -1,1 +1,1 @@
-export * from "./";
+export * from "./adBook-entity";
