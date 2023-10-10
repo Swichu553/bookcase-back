@@ -2,6 +2,7 @@ import express, { json } from 'express';
 import cors from 'cors';
 import { config } from './config/config';
 import rateLimit from 'express-rate-limit';
+import { handleError } from './utils/errors';
 
 const app = express();
 
@@ -14,6 +15,8 @@ app.use(rateLimit({
     max: 100, //limit
 }));
 
+
+app.use(handleError);
 
 app.listen(3001, '0.0.0.0', () => {
     console.log('Listening on port http://localhost:3001');
