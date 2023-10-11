@@ -43,7 +43,7 @@ export class AdBookRecord implements AdBookEntity {
         return results.length === 0 ? null : new AdBookRecord(results[0]);
     };
 
-    static async getAllBook(title: string): Promise<SimpleAdEntity[]> {
+    static async getAllBooks(title: string): Promise<SimpleAdEntity[]> {
         const [results] = await pool.execute("SELECT * FROM `books` WHERE `title` LIKE :search", {
             search: `%${title}%`,
         }) as AdBookRecordResult;
@@ -55,8 +55,9 @@ export class AdBookRecord implements AdBookEntity {
 
             return {
                 id, isbn, title,
-            }
-        })
+            };
+        });
 
+        // @TODO add books to database
     }
 };
