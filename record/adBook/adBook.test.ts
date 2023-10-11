@@ -1,6 +1,5 @@
 import { AdBookRecord } from '../../record/adBook/adBook.record';
 
-console.log
 
 test("sprawdzenie pobrania książki", async () => {
     const book = await AdBookRecord.getOneBook('1');
@@ -16,3 +15,11 @@ test("sprawdzenie pobrania książki", async () => {
 });
 
 
+test("pobranie wszystkich książek", async () => {
+    const books = await AdBookRecord.getAllBook('');
+
+    console.log(books);
+
+    expect(books[1].id).toBe('2');
+
+});

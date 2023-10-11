@@ -1,10 +1,10 @@
 export interface SimpleAdEntity {
     id: string;
+    isbn: string;
+    title: string;
 }
 
 export interface AdBookEntity extends SimpleAdEntity {
-    isbn: string;
-    title: string;
     author: string;
     publisher: string;
     publicationDate: Date;

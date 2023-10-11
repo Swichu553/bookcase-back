@@ -43,6 +43,20 @@ export class AdBookRecord implements AdBookEntity {
         return results.length === 0 ? null : new AdBookRecord(results[0]);
     };
 
-    // @TODO add findAllBook
+    static async getAllBook(title: string): Promise<SimpleAdEntity[]> {
+        const [results] = await pool.execute("SELECT * FROM `books` WHERE `title` LIKE :search", {
+            search: `%${title}%`,
+        }) as AdBookRecordResult;
 
+        return results.map(result => {
+            const {
+                id, isbn, title,
+            } = result;
+
+            return {
+                id, isbn, title,
+            }
+        })
+
+    }
 };
