@@ -34,7 +34,7 @@ export class AdBookRecord implements AdBookEntity {
     };
 
     static async getOneBook(isbn: string): Promise<AdBookRecord | null> {
-        const [results] = await pool.execute("SELECT * FROM `book` WHERE `isbn` = :isbn", {
+        const [results] = await pool.execute("SELECT * FROM `books` WHERE `isbn` = :isbn", {
             isbn,
         }) as AdBookRecordResult;
 
