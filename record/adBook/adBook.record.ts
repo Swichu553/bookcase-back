@@ -6,16 +6,17 @@ import { ValidationError } from "../../utils/errors";
 type AdBookRecordResult = [AdBookEntity[], FieldPacket[]]
 
 export class AdBookRecord implements AdBookEntity {
+    id: string;
     isbn: string;
     title: string;
     author: string;
     publisher: string;
-    publisherDate: Date;
+    publicationDate: Date;
     categories: string;
     rating: string;
     description: string;
     constructor(obj: AdBookEntity) {
-        const { isbn, title, author, publisher, publisherDate, categories, rating, description } = obj;
+        const { id, isbn, title, author, publisher, publicationDate, categories, rating, description } = obj;
 
         if (!isbn) {
             throw new ValidationError("Nie podano numeru ISBN książki!!");
@@ -23,19 +24,20 @@ export class AdBookRecord implements AdBookEntity {
 
         // @TODO add more validations
 
+        this.id = id;
         this.isbn = isbn;
         this.title = title;
         this.author = author;
         this.publisher = publisher;
-        this.publisherDate = publisherDate;
+        this.publicationDate = publicationDate;
         this.categories = categories;
         this.rating = rating;
         this.description = description;
     };
 
-    static async getOneBook(isbn: string): Promise<AdBookRecord | null> {
-        const [results] = await pool.execute("SELECT * FROM `books` WHERE `isbn` = :isbn", {
-            isbn,
+    static async getOneBook(id: string): Promise<AdBookRecord | null> {
+        const [results] = await pool.execute("SELECT * FROM `books` WHERE `id` = :id", {
+            id,
         }) as AdBookRecordResult;
 
         return results.length === 0 ? null : new AdBookRecord(results[0]);

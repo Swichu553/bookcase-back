@@ -1,6 +1,6 @@
 export const config = {
     dbHost: 'localhost',
-    dbUser: 'user',
-    dbDatabase: 'datboocaseabase',
+    dbUser: 'root',
+    dbDatabase: 'bookcase',
     corsOrigin: 'http://localhost:3000',
 };
