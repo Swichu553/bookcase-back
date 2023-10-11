@@ -16,7 +16,7 @@ test("sprawdzenie pobrania książki", async () => {
 
 
 test("pobranie wszystkich książek", async () => {
-    const books = await AdBookRecord.getAllBook('');
+    const books = await AdBookRecord.getAllBooks('');
 
     console.log(books);
 
