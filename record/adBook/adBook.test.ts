@@ -1,16 +1,15 @@
-import { AdBookRecord } from '../../record/adBook/adBook.record';
+import { AdBookRecord } from './adBook.record';
 
 
 test("sprawdzenie pobrania książki", async () => {
-    const book = await AdBookRecord.getOneBook('1');
+    const book = await AdBookRecord.getOneBook(`3d0b5c91-119a-4a93-9196-ea8c6d5fe606`);
 
     console.log(book);
 
     expect(book).toBeDefined();
-    expect(book.id).toBe('1');
-    expect(book.title).toBe('Przykładowa książka');
-    expect(book.author).toBe('Jan Kowalski')
-
+    expect(book.id).toBe('3d0b5c91-119a-4a93-9196-ea8c6d5fe606');
+    expect(book.title).toBe('Dodawanie nowej książki');
+    expect(book.author).toBe('Testowy Tester');
 
 });
 
@@ -20,7 +19,7 @@ test("pobranie wszystkich książek", async () => {
 
     console.log(books);
 
-    expect(books[1].id).toBe('2');
+    expect(books[0].id).toBe('1');
 
 
 });

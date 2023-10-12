@@ -7,14 +7,14 @@ import { v4 as uuid } from 'uuid';
 type AdBookRecordResult = [AdBookEntity[], FieldPacket[]]
 
 export class AdBookRecord implements AdBookEntity {
-    id: string;
-    isbn: string;
-    title: string;
-    author: string;
-    publisher: string;
-    publicationDate: Date;
-    categories: string;
-    rating: string;
+    public id: string;
+    public isbn: string;
+    public title: string;
+    public author: string;
+    public publisher: string;
+    public publicationDate: Date;
+    public categories: string;
+    public rating: string;
     description: string;
     constructor(obj: AdBookEntity) {
         const { id, isbn, title, author, publisher, publicationDate, categories, rating, description } = obj;
@@ -67,6 +67,7 @@ export class AdBookRecord implements AdBookEntity {
             throw new Error('Nie można dodać istniejącego indexu');
         }
 
-        await pool.execute("INSERT INTO `books`(`id`, 'isbn', `title`, `author`, `publisher`, `publicationDate`, `categories`, `rating`, `description`) VALUE(:id, :isbn, :title, :author, :publisher, :categories, :rating, :description )")
+        await pool.execute("INSERT INTO `books`(`id`, `isbn`, `title`, `author`, `publisher`, `publicationDate`, `categories`, `rating`, `description`) VALUES(:id, :isbn, :title, :author, :publisher, :publicationDate, :categories, :rating, :description )", this)
     };
 };
+

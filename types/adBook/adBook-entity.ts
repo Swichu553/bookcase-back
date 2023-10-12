@@ -1,5 +1,5 @@
 export interface SimpleAdEntity {
-    id: string;
+    id?: string;
     isbn: string;
     title: string;
 }
