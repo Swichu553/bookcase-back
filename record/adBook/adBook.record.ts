@@ -15,7 +15,7 @@ export class AdBookRecord implements AdBookEntity {
     public publicationDate: Date;
     public categories: string;
     public rating: string;
-    description: string;
+    public description: string;
     constructor(obj: AdBookEntity) {
         const { id, isbn, title, author, publisher, publicationDate, categories, rating, description } = obj;
 

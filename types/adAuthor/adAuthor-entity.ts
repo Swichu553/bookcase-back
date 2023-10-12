@@ -1,5 +1,6 @@
 export interface AdAuthorEntity {
-    id: string;
+    id?: string;
     name: string;
     description: string;
+    books: string;
 };
