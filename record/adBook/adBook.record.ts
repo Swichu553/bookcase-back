@@ -2,6 +2,7 @@ import { FieldPacket } from "mysql2";
 import { AdBookEntity, SimpleAdEntity } from "../../types"
 import { pool } from "../../utils/db";
 import { ValidationError } from "../../utils/errors";
+import { v4 as uuid } from 'uuid';
 
 type AdBookRecordResult = [AdBookEntity[], FieldPacket[]]
 
@@ -57,7 +58,15 @@ export class AdBookRecord implements AdBookEntity {
                 id, isbn, title,
             };
         });
+    };
 
-        // @TODO add books to database
-    }
+    async insertBook(): Promise<void> {
+        if (!this.id) {
+            this.id = uuid();
+        } else {
+            throw new Error('Nie można dodać istniejącego indexu');
+        }
+
+        await pool.execute("INSERT INTO `books`(`id`, 'isbn', `title`, `author`, `publisher`, `publicationDate`, `categories`, `rating`, `description`) VALUE(:id, :isbn, :title, :author, :publisher, :categories, :rating, :description )")
+    };
 };

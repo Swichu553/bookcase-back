@@ -22,4 +22,11 @@ test("pobranie wszystkich książek", async () => {
 
     expect(books[1].id).toBe('2');
 
+
 });
+
+test("pobranie nie istniejącej książki", async () => {
+    const book = await AdBookRecord.getOneBook('555');
+
+    expect(book).toBeNull();
+})
