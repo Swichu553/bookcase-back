@@ -1,5 +1,5 @@
 import { FieldPacket } from "mysql2";
-import { AdCategorieEntity } from "../../types/"
+import { AdCategorieEntity } from "../../types"
 import { pool } from "../../utils/db";
 import { v4 as uuid } from 'uuid';
 import { ValidationError } from "../../utils/errors";
