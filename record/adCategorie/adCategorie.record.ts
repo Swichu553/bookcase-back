@@ -40,10 +40,12 @@ export class AdCategoryRecord implements AdCategorieEntity {
         if (!this.id) {
             this.id = uuid();
         } else {
-            throw new Error('Nie można dodać istniejącego indexu');
+            throw new ValidationError('Nie można dodać istniejącego indexu');
         }
 
-        await pool.execute("INSERT INTO `categories`(`id`, `name`,`description`) VALUES(:id, :name, : description)", this)
+        //@TODO dodać sprawdzenie czy kategoria już istnieje
+
+        await pool.execute("INSERT INTO `categories`(`id`, `name`,`description`) VALUES(:id, :name, :description)", this)
 
     };
 
