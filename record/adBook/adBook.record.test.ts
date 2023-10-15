@@ -1,12 +1,12 @@
-import { AdBookRecord } from '../../record/adBook/adBook.record';
+import { AdBookRecord } from './adBook.record';
 
 const defBook = {
     isbn: '9999-5151',
     title: "Nowa książka",
-    authorId: "Testowy Tester",
+    authorId: "1",
     publisher: "",
     publicationDate: new Date(),
-    categoriesId: "Komedia",
+    categoriesId: "1",
     rating: "test rating",
     description: "Opis książki, zajebista książka",
 };

@@ -5,5 +5,5 @@ export interface SimpleAdAuthorEntity {
 }
 
 export interface AdAuthorEntity extends SimpleAdAuthorEntity {
-    description: string;
+    description?: string;
 };
