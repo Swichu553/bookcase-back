@@ -1,6 +1,9 @@
-export interface AdAuthorEntity {
+export interface SimpleAdAuthorEntity {
     id?: string;
-    name: string;
+    firstName: string;
+    lastName: string;
+}
+
+export interface AdAuthorEntity extends SimpleAdAuthorEntity {
     description: string;
-    books: string;
 };

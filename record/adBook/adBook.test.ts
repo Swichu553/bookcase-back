@@ -9,7 +9,7 @@ test("sprawdzenie pobrania książki", async () => {
     expect(book).toBeDefined();
     expect(book.id).toBe('3d0b5c91-119a-4a93-9196-ea8c6d5fe606');
     expect(book.title).toBe('Dodawanie nowej książki');
-    expect(book.author).toBe('Testowy Tester');
+    expect(book.authorId).toBe('Testowy Tester');
 
 });
 

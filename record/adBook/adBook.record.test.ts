@@ -3,10 +3,10 @@ import { AdBookRecord } from '../../record/adBook/adBook.record';
 const defBook = {
     isbn: '9999-5151',
     title: "Nowa książka",
-    author: "Testowy Tester",
+    authorId: "Testowy Tester",
     publisher: "",
     publicationDate: new Date(),
-    categories: "Komedia",
+    categoriesId: "Komedia",
     rating: "test rating",
     description: "Opis książki, zajebista książka",
 };
