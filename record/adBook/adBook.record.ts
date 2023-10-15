@@ -1,5 +1,5 @@
 import { FieldPacket } from "mysql2";
-import { AdBookEntity, SimpleAdEntity } from "../../types"
+import { AdBookEntity, SimpleAdBookEntity } from "../../types"
 import { pool } from "../../utils/db";
 import { ValidationError } from "../../utils/errors";
 import { v4 as uuid } from 'uuid';
@@ -44,7 +44,7 @@ export class AdBookRecord implements AdBookEntity {
         return results.length === 0 ? null : new AdBookRecord(results[0]);
     };
 
-    static async getAllBooks(title: string): Promise<SimpleAdEntity[]> {
+    static async getAllBooks(title: string): Promise<SimpleAdBookEntity[]> {
         const [results] = await pool.execute("SELECT * FROM `books` WHERE `title` LIKE :search", {
             search: `%${title}%`,
         }) as AdBookRecordResult;
