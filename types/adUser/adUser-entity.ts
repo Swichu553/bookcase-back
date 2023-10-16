@@ -2,7 +2,9 @@ export interface AdUserEntity {
     id: string;
     login: string;
     pass: string;
-    firstname: string;
+    firstName: string;
     email: string;
     booksId: string;
+    role: string;
+    isActive: boolean;
 };
