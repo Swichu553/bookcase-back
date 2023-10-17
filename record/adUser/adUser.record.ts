@@ -10,23 +10,23 @@ type AdUserRecordResult = [AdUserEntity[], FieldPacket[]];
 class AdUserRecord implements AdUserEntity {
     id: string;
     login: string;
-    pass: string;
+    passwordHash: string;
     firstName: string;
     email: string;
     booksId: string;
     role: string;
     isActive: boolean;
     constructor(obj: AdUserEntity) {
-        const { id, login, pass, firstName, email, booksId, role, isActive } = obj;
+        const { id, login, passwordHash, firstName, email, booksId, role, isActive } = obj;
 
         this.id = id;
         this.login = login;
-        this.pass = pass;
+        this.passwordHash = passwordHash;
         this.firstName = firstName;
         this.email = email;
         this.booksId = booksId;
         this.role = role;
-        this.isActive = false;
+        this.isActive = isActive;
     };
 
     static async getOneUser(id: string): Promise<AdUserEntity | null> {
@@ -66,7 +66,7 @@ class AdUserRecord implements AdUserEntity {
             throw new ValidationError('Na podany mail już istnieje konto')
         };
 
-        await pool.execute("INSER INT `users`(`id`, `login`, `pass`, `firstName`, `email`, `booksId`, `role`, `isActive`) VALUSE(:id, :login, :pass, :firstName, :email, :booksId, :role)", this)
+        await pool.execute("INSER INT `users`(`id`, `login`, `passwordHash`, `firstName`, `email`, `booksId`, `role`, `isActive`) VALUSE(:id, :login, :passwordHash, :firstName, :email, :booksId, :role,)", this)
 
     }
 };
