@@ -9,7 +9,7 @@ export const hashPassword = async (password: string): Promise<string> => {
         const hash = await bcrypt.hash(password, salt);
         return hash;
     } catch (error) {
-        throw new ValidationError('Błąd podczas haszowania hasła');
+        throw new Error('Błąd podczas haszowania hasła');
     }
 };
 
