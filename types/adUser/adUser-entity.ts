@@ -2,10 +2,10 @@ export interface AdUserEntity {
     id: string;
     login: string;
     pass: string;
-    passwordHash: string;
+    passwordHash: string | null;
     firstName: string;
     email: string;
-    booksId: string;
+    booksId: string | null;
     role: string;
     isActive: boolean;
 };

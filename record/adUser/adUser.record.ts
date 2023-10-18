@@ -1,4 +1,4 @@
-import { FieldPacket } from "mysql2";
+import { FieldPacket, RowDataPacket } from "mysql2";
 import { AdUserEntity } from "../../types";
 import { pool } from "../../utils/db";
 import { v4 as uuid } from 'uuid';
@@ -6,36 +6,25 @@ import { ValidationError } from "../../utils/errors";
 import { hashPassword, verifyPassword } from "../../utils/passwordUtils";
 
 type AdUserRecordResult = [AdUserEntity[], FieldPacket[]];
-type test = [string[], FieldPacket[]]
 
 
-class AdUserRecord implements AdUserEntity {
+export class AdUserRecord implements AdUserEntity {
     id: string;
     login: string;
     pass: string;
     passwordHash: string;
     firstName: string;
     email: string;
-    booksId: string;
+    booksId: string | null;
     role: string;
     isActive: boolean;
     constructor(obj: AdUserEntity) {
-        const { id, login, pass, passwordHash, firstName, email, booksId, role, isActive } = obj;
-
-        this.id = id;
-        this.login = login;
-        this.pass = pass;
-        this.passwordHash = passwordHash;
-        this.firstName = firstName;
-        this.email = email;
-        this.booksId = booksId;
-        this.role = role;
-        this.isActive = isActive;
+        Object.assign(this, obj);
     };
 
-    static async getOneUser(name: string): Promise<AdUserEntity | null> {
-        const [results] = await pool.execute("SELECT * FROM `users` WHERE `name` = :name", {
-            name,
+    static async getOneUser(id: string): Promise<AdUserEntity | null> {
+        const [results] = await pool.execute("SELECT * FROM `users` WHERE `id` = :id", {
+            id,
         }) as AdUserRecordResult;
 
         return results.length === 0 ? null : new AdUserRecord(results[0]);
@@ -47,17 +36,19 @@ class AdUserRecord implements AdUserEntity {
     };
 
     async checkUserLogin(login: string): Promise<boolean> {
-        const [results] = await pool.execute("SELECT * FROM `users` WHERE `login` = :login", {
+        const [results] = await pool.execute("SELECT COUNT(*) as count FROM `users` WHERE `login` = :login", {
             login,
-        }) as AdUserRecordResult;
-        return results.length === 0 ? false : true;
+        }) as RowDataPacket[];
+        const count = results[0].count;
+        return count > 0;
     };
 
     async checkUserEmail(email: string): Promise<boolean> {
-        const [results] = await pool.execute("SELECT * FROM `users` WHERE `email` = :email", {
+        const [results] = await pool.execute("SELECT COUNT(*) as count FROM `users` WHERE `email` = :email", {
             email,
-        }) as AdUserRecordResult;
-        return results.length === 0 ? false : true;
+        }) as RowDataPacket[];
+        const count = results[0].count;
+        return count > 0;
     };
 
     async insertUser(): Promise<void> {
@@ -67,17 +58,17 @@ class AdUserRecord implements AdUserEntity {
             throw new ValidationError('Nie można dodać istniejącego indexu');
         }
 
-        if (this.checkUserLogin(this.login)) {
+        if (await this.checkUserLogin(this.login)) {
             throw new ValidationError('Login jest już zajęty')
         };
 
-        if (this.checkUserEmail(this.email)) {
+        if (await this.checkUserEmail(this.email)) {
             throw new ValidationError('Na podany mail już istnieje konto')
         };
 
         this.passwordHash = await hashPassword(this.pass);
 
-        await pool.execute("INSER INT `users`(`id`, `login`, `passwordHash`, `firstName`, `email`, `booksId`, `role`, `isActive`) VALUSE(:id, :login, :passwordHash, :firstName, :email, :booksId, :role,)", this)
+        await pool.execute("INSERT INTO `users`(`id`, `login`, `passwordHash`, `firstName`, `email`, `booksId`, `role`, `isActive`) VALUES(:id, :login, :passwordHash, :firstName, :email, :booksId, :role, :isActive)", this)
 
     }
 };
