@@ -36,13 +36,18 @@ export class AdBookRecord implements AdBookEntity {
         this.description = description;
     };
 
-    static async getOneBook(id: string): Promise<AdBookRecord | null> {
-        const [results] = await pool.execute("SELECT * FROM `books` WHERE `id` = :id", {
-            id,
+    static async getOneBook(value: string, byId: boolean = true): Promise<AdBookRecord | null> {
+        const query = byId
+            ? "SELECT * FROM `books` WHERE `id` = :id"
+            : "SELECT * FROM `books` WHERE `title` = :title";
+
+        const [results] = await pool.execute(query, {
+            id: byId ? value : null,
+            title: byId ? null : value,
         }) as AdBookRecordResult;
 
         return results.length === 0 ? null : new AdBookRecord(results[0]);
-    };
+    }
 
     static async getAllBooks(title: string): Promise<SimpleAdBookEntity[]> {
         const [results] = await pool.execute("SELECT * FROM `books` WHERE `title` LIKE :search", {

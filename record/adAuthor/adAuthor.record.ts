@@ -21,9 +21,14 @@ export class AdAuthorRecord implements AdAuthorEntity {
     };
 
 
-    static async getOneAuthor(id: string): Promise<AdAuthorRecord | null> {
-        const [results] = await pool.execute("SELECT * FROM `authors` WHERE `id` = :id", {
-            id,
+    static async getOneAuthor(value: string, byId: boolean = true): Promise<AdAuthorRecord | null> {
+        const query = byId
+            ? "SELECT * FROM `authors` WHERE `id` = :id"
+            : "SELECT * FROM `authors` WHERE `lastName` = :lastName"
+
+        const [results] = await pool.execute(query, {
+            id: byId ? value : null,
+            lastName: byId ? null : value,
         }) as AdAuthorRecordResult;
 
         return results.length === 0 ? null : new AdAuthorRecord(results[0]);
