@@ -3,10 +3,8 @@ import cors from 'cors';
 import { config } from './config/config';
 import rateLimit from 'express-rate-limit';
 import { handleError } from './utils/errors';
-import { adBookRouter } from './routers/adbook.router';
-import { adUserRouter } from './routers/adUser.router';
-import { adAuthorRouter } from './routers/adAuthor.router';
-import { adCategorieRouter } from './routers/adCategorie.router';
+import { appRouter } from './routers/app.router';
+
 
 const app = express();
 
@@ -21,10 +19,8 @@ app.use(rateLimit({
 
 const router = Router();
 
-app.use('/book', adBookRouter);
-app.use('/user', adUserRouter);
-app.use('/author', adAuthorRouter);
-app.use('/categorie', adCategorieRouter);
+app.use('/', appRouter);
+
 
 app.use(handleError);
 

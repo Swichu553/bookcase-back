@@ -30,8 +30,8 @@ export class AdUserRecord implements AdUserEntity {
         return results.length === 0 ? null : new AdUserRecord(results[0]);
     };
 
-    static async checkPassword(name: string, pass: string): Promise<boolean> {
-        const hash = (await this.getOneUser(name)).passwordHash;
+    static async checkPassword(login: string, pass: string): Promise<boolean> {
+        const hash = (await this.getOneUser(login)).passwordHash;
         return await verifyPassword(hash, pass);
     };
 
