@@ -1,14 +1,27 @@
-import { Router } from "express";
-import { AdUserEntity } from "../types/index"
-import { AdUserRecord } from "../record/adUser/adUser.record";
+import express, { Request, Response } from 'express';
+import passport from 'passport';
 
-export const authRouter = Router()
+const router = express.Router();
 
-
-    .get('/login', async (req, res) => {
-        const { login, pass } = req.body;
-        const user = await AdUserRecord.checkPassword(login, pass);
-
-        res.json(user);
-    })
+// Trasa do logowania
+export const authRouter = router
+    .post('/login', (req: Request, res: Response, next) => {
+        // Użyj Passport.js do uwierzytelnienia
+        passport.authenticate('local', (err: string, user: string, info: string) => {
+            if (err) {
+                return next(err);
+            }
+            if (!user) {
+                // Uwierzytelnianie nie powiodło się
+                return res.status(401).json({ message: 'Nieprawidłowe dane uwierzytelniające' });
+            }
+            // Uwierzytelnianie zakończone sukcesem
+            req.login(user, (loginErr) => {
+                if (loginErr) {
+                    return next(loginErr);
+                }
+                return res.json({ message: 'Zalogowano pomyślnie' });
+            });
+        })(req, res, next);
+    });
 
