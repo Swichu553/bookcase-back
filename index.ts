@@ -1,8 +1,9 @@
-import express, { json } from 'express';
+import express, { Router, json } from 'express';
 import cors from 'cors';
 import { config } from './config/config';
 import rateLimit from 'express-rate-limit';
 import { handleError } from './utils/errors';
+import { appRouter } from './routers/app.router';
 
 const app = express();
 
@@ -15,7 +16,8 @@ app.use(rateLimit({
     max: 100, //limit
 }));
 
-
+const router = Router();
+app.use('/', appRouter)
 
 
 app.use(handleError);

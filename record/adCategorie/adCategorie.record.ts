@@ -26,8 +26,10 @@ export class AdCategoryRecord implements AdCategorieEntity {
         return results.length === 0 ? null : new AdCategoryRecord(results[0]);
     };
 
-    static async getAllCategorie(): Promise<AdCategorieEntity[]> {
-        const [results] = await pool.execute("SELECT * FROM `categories`") as AdCategorieRecordResult;
+    static async getAllCategorie(name: string): Promise<AdCategorieEntity[]> {
+        const [results] = await pool.execute("SELECT * FROM `categories` WHERE `name` LIKE :search", {
+            search: `%${name}%`
+        }) as AdCategorieRecordResult;
 
         return results.map(result => {
             const { id, name, description } = result;

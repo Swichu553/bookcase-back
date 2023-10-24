@@ -8,6 +8,6 @@ import { adCategorieRouter } from './adCategorie.router';
 export const appRouter = Router();
 
 appRouter.use('/book', adBookRouter);
-appRouter.use('/user', adUserRouter);
+//appRouter.use('/user', adUserRouter);
 appRouter.use('/author', adAuthorRouter);
 appRouter.use('/categorie', adCategorieRouter);

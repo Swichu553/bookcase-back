@@ -1,4 +1,4 @@
-import { AdAuthorEntity } from "../../types";
+import { AdAuthorEntity, SimpleAdAuthorEntity } from "../../types";
 import { FieldPacket } from "mysql2";
 import { pool } from "../../utils/db";
 import { ValidationError } from "../../utils/errors";
@@ -29,6 +29,22 @@ export class AdAuthorRecord implements AdAuthorEntity {
         return results.length === 0 ? null : new AdAuthorRecord(results[0]);
     };
 
+    static async getAllAuthors(lastName: string): Promise<SimpleAdAuthorEntity[]> {
+        const [results] = await pool.execute("SELECT * FROM `authors` WHERE `lastName` LIKE :search", {
+            search: `%${lastName}%`,
+        }) as AdAuthorRecordResult;
+
+        return results.map(result => {
+            const {
+                id, firstName, lastName,
+            } = result;
+
+            return {
+                id, firstName, lastName,
+            }
+        })
+
+    };
 
     async insertAuthor(): Promise<void> {
         if (!this.id) {
