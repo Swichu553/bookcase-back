@@ -45,7 +45,7 @@ const router = express.Router();
 app.use(passport.authenticate('local'));
 
 // Dodaj trasy
-app.use('/auth', authRouter);
+app.use('/login', authRouter);
 app.use('/', appRouter);
 
 app.use(handleError);
