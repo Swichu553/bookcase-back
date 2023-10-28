@@ -1,17 +1,16 @@
 import { FieldPacket, RowDataPacket } from "mysql2";
-import { AdUserEntity } from "../../types";
+import { AdUserEntity, AdUserRecordResult } from "../../types";
 import { pool } from "../../utils/db";
 import { v4 as uuid } from 'uuid';
 import { ValidationError } from "../../utils/errors";
 import { hashPassword, verifyPassword } from "../../utils/passwordUtils";
 
-type AdUserRecordResult = [AdUserEntity[], FieldPacket[]];
 
 
 export class AdUserRecord implements AdUserEntity {
     id: string;
-    login: string;
-    pass: string;
+    username: string;
+    password: string;
     passwordHash: string;
     firstName: string;
     email: string;
@@ -22,7 +21,7 @@ export class AdUserRecord implements AdUserEntity {
         Object.assign(this, obj);
     };
 
-    static async getOneUser(id: string): Promise<AdUserEntity | null> {
+    static async getOneUserId(id: string): Promise<AdUserEntity | null> {
         const [results] = await pool.execute("SELECT * FROM `users` WHERE `id` = :id", {
             id,
         }) as AdUserRecordResult;
@@ -30,8 +29,16 @@ export class AdUserRecord implements AdUserEntity {
         return results.length === 0 ? null : new AdUserRecord(results[0]);
     };
 
+    static async getUsername(username: string): Promise<AdUserEntity | null> {
+        const [results] = await pool.execute("SELECT * FROM `users` WHERE `username` = :username", {
+            username,
+        }) as AdUserRecordResult;
+
+        return results.length === 0 ? null : new AdUserRecord(results[0]);
+    };
+
     static async checkPassword(name: string, pass: string): Promise<boolean> {
-        const hash = (await this.getOneUser(name)).passwordHash;
+        const hash = (await this.getUsername(name)).passwordHash;
         return await verifyPassword(hash, pass);
     };
 
@@ -58,7 +65,7 @@ export class AdUserRecord implements AdUserEntity {
             throw new ValidationError('Nie można dodać istniejącego indexu');
         }
 
-        if (await this.checkUserLogin(this.login)) {
+        if (await this.checkUserLogin(this.username)) {
             throw new ValidationError('Login jest już zajęty')
         };
 
@@ -66,7 +73,7 @@ export class AdUserRecord implements AdUserEntity {
             throw new ValidationError('Na podany mail już istnieje konto')
         };
 
-        this.passwordHash = await hashPassword(this.pass);
+        this.passwordHash = await hashPassword(this.password);
 
         await pool.execute("INSERT INTO `users`(`id`, `login`, `passwordHash`, `firstName`, `email`, `booksId`, `role`, `isActive`) VALUES(:id, :login, :passwordHash, :firstName, :email, :booksId, :role, :isActive)", this)
 

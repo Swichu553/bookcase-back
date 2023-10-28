@@ -4,8 +4,11 @@ import { config } from './config/config';
 import rateLimit from 'express-rate-limit';
 import { handleError } from './utils/errors';
 import { appRouter } from './routers/app.router';
+import { loginRouter } from './routers/login.router';
+import { generateSecretKey } from './utils/secretKey';
 
 const app = express();
+generateSecretKey();
 
 app.use(cors({
     origin: config.corsOrigin,
@@ -17,6 +20,8 @@ app.use(rateLimit({
 }));
 
 const router = Router();
+app.use('/login', loginRouter);
+
 app.use('/', appRouter)
 
 
