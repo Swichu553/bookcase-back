@@ -104,8 +104,8 @@ export class AdUserRecord implements AdUserEntity {
         await pool.execute("INSERT INTO `user_books`(`id_user`, `id_book`) VALUES(`:userId`, `:bookId`)", {
             userId,
             bookId,
-        })
-    }
+        });
+    };
 
 };
 
