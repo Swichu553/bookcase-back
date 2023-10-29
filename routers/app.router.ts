@@ -8,7 +8,7 @@ import { authenticateToken } from "../controllers/authMiddleware";
 
 export const appRouter = Router();
 
-appRouter.use('/book', authenticateToken, adBookRouter);
-//appRouter.use('/user', adUserRouter);
-appRouter.use('/author', authenticateToken, adAuthorRouter);
-appRouter.use('/categorie', authenticateToken, adCategorieRouter);
+appRouter.use('/book', adBookRouter);
+appRouter.use('/user', adUserRouter);
+appRouter.use('/author', adAuthorRouter);
+appRouter.use('/categorie', adCategorieRouter);

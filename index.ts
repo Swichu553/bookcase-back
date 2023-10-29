@@ -1,11 +1,13 @@
 import express, { Router, json } from 'express';
 import cors from 'cors';
-import { config } from './config/config';
 import rateLimit from 'express-rate-limit';
+import { config } from './config/config';
 import { handleError } from './utils/errors';
 import { appRouter } from './routers/app.router';
 import { loginRouter } from './routers/login.router';
 import { generateSecretKey } from './utils/secretKey';
+import { authenticateToken } from './controllers/authMiddleware';
+import { registerRouter } from './routers/register.router';
 
 const app = express();
 generateSecretKey();
@@ -21,9 +23,8 @@ app.use(rateLimit({
 
 const router = Router();
 app.use('/login', loginRouter);
-
-app.use('/', appRouter)
-
+app.use('/register', registerRouter);
+app.use('/', authenticateToken, appRouter)
 
 app.use(handleError);
 
