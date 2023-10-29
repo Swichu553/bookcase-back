@@ -44,9 +44,9 @@ export class AdUserRecord implements AdUserEntity {
         return await verifyPassword(hash, pass);
     };
 
-    async checkUserLogin(login: string): Promise<boolean> {
-        const [results] = await pool.execute("SELECT COUNT(*) as count FROM `users` WHERE `login` = :login", {
-            login,
+    async checkUserLogin(username: string): Promise<boolean> {
+        const [results] = await pool.execute("SELECT COUNT(*) as count FROM `users` WHERE `username` = :username", {
+            username,
         }) as RowDataPacket[];
         const count = results[0].count;
         return count > 0;
@@ -80,6 +80,15 @@ export class AdUserRecord implements AdUserEntity {
         await pool.execute("INSERT INTO `users`(`id`, `login`, `passwordHash`, `firstName`, `email`, `booksId`, `role`, `isActive`) VALUES(:id, :login, :passwordHash, :firstName, :email, :booksId, :role, :isActive)", this)
 
     };
+
+    async updateUser(): Promise<string> {
+        const user = await pool.execute(`
+        UPDATE users
+        SET login = :login, firstName = :firstName, email = :email, booksId = :booksId, role = :role, isActive = :isActive
+        WHERE id = :id;
+      `, this);
+        return this.id;
+    }
 
     static async getUserBooks(id: string): Promise<AdUserEntity | null> {
         const [results] = await pool.execute("SELECT books.* FROM `users` JOIN `user_books` ON `users.id` = `user_books.user_id` JOIN `books` ON `user_books.book_id` = `books.id` WHERE `users.id` = :id", {
