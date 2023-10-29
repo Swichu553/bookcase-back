@@ -1,4 +1,9 @@
 import { Router } from "express";
-import { AdUserEntity } from "../types/index"
+import { AdUserRecord } from "../record/adUser/adUser.record";
 
-export const adUserRouter = Router();
+export const adUserRouter = Router()
+
+    .get('/:id', async (req, res) => {
+        const user = await AdUserRecord.getOneUserId(req.params.id);
+        res.json(user);
+    })

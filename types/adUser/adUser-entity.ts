@@ -1,4 +1,3 @@
-import { FieldPacket } from "mysql2";
 
 export interface AdUserEntity {
     id: string;
@@ -12,4 +11,3 @@ export interface AdUserEntity {
     isActive: boolean;
 };
 
-export type AdUserRecordResult = [AdUserEntity[], FieldPacket[]];

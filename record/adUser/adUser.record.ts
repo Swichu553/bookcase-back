@@ -1,10 +1,11 @@
 import { FieldPacket, RowDataPacket } from "mysql2";
-import { AdUserEntity, AdUserRecordResult } from "../../types";
+import { AdUserEntity } from "../../types";
 import { pool } from "../../utils/db";
 import { v4 as uuid } from 'uuid';
 import { ValidationError } from "../../utils/errors";
 import { hashPassword, verifyPassword } from "../../utils/passwordUtils";
 
+export type AdUserRecordResult = [AdUserEntity[], FieldPacket[]];
 
 
 export class AdUserRecord implements AdUserEntity {
@@ -22,11 +23,12 @@ export class AdUserRecord implements AdUserEntity {
     };
 
     static async getOneUserId(id: string): Promise<AdUserEntity | null> {
-        const [results] = await pool.execute("SELECT * FROM `users` WHERE `id` = :id", {
+        const [results] = await pool.execute("SELECT `id`, `login`, `firstName`, `email`, `role` FROM `users` WHERE `id` = :id", {
             id,
         }) as AdUserRecordResult;
 
-        return results.length === 0 ? null : new AdUserRecord(results[0]);
+        return results.length === 0 ? null
+            : new AdUserRecord(results[0]);
     };
 
     static async getUsername(username: string): Promise<AdUserEntity | null> {
@@ -70,13 +72,31 @@ export class AdUserRecord implements AdUserEntity {
         };
 
         if (await this.checkUserEmail(this.email)) {
-            throw new ValidationError('Na podany mail już istnieje konto')
+            throw new ValidationError('Na podany email już istnieje konto')
         };
 
         this.passwordHash = await hashPassword(this.password);
 
         await pool.execute("INSERT INTO `users`(`id`, `login`, `passwordHash`, `firstName`, `email`, `booksId`, `role`, `isActive`) VALUES(:id, :login, :passwordHash, :firstName, :email, :booksId, :role, :isActive)", this)
 
+    };
+
+    static async getUserBooks(id: string): Promise<AdUserEntity | null> {
+        const [results] = await pool.execute("SELECT books.* FROM `users` JOIN `user_books` ON `users.id` = `user_books.user_id` JOIN `books` ON `user_books.book_id` = `books.id` WHERE `users.id` = :id", {
+            id,
+        }) as AdUserRecordResult;
+
+        return results.length === 0 ? null
+            : new AdUserRecord(results[0]);
+    };
+
+    static async insertUserBook(userId: string, bookId: string): Promise<void> {
+
+        await pool.execute("INSERT INTO `user_books`(`id_user`, `id_book`) VALUES(`:userId`, `:bookId`)", {
+            userId,
+            bookId,
+        })
     }
+
 };
 

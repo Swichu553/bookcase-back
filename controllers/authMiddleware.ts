@@ -15,7 +15,6 @@ export const authenticateToken = async (req: Request, res: Response, next: NextF
             return res.status(403).json({ message: 'Nieprawidłowy token JWT. Autoryzacja nie powiodła się.' });
         }
 
-        // res.json({ user });
         next();
     });
 };
