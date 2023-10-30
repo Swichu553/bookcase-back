@@ -3,6 +3,15 @@ import { AdUserRecord } from "../record/adUser/adUser.record";
 
 export const adUserRouter = Router()
 
+    .get('/:id/books', async (req: Request, res: Response) => {
+        try {
+            const books = await AdUserRecord.getUserBooks(req.params.id);
+            res.json(books);
+        } catch (error) {
+            res.status(500).json({ error: 'Błąd pobierania książek użytkownika' });
+        }
+    })
+
     .get('/:id', async (req: Request, res: Response) => {
         try {
             const user = await AdUserRecord.getOneUserId(req.params.id);
@@ -12,7 +21,8 @@ export const adUserRouter = Router()
         }
 
     })
-    .post('/:id', async (req: Request, res: Response) => {
+
+    .post('/', async (req: Request, res: Response) => {
         try {
             const user = new AdUserRecord(req.body);
             user.updateUser();

@@ -1,10 +1,8 @@
 import { FieldPacket } from "mysql2";
-import { AdBookEntity, SimpleAdBookEntity } from "../../types"
+import { AdBookEntity, AdBookRecordResult, SimpleAdBookEntity } from "../../types"
 import { pool } from "../../utils/db";
 import { ValidationError } from "../../utils/errors";
 import { v4 as uuid } from 'uuid';
-
-type AdBookRecordResult = [AdBookEntity[], FieldPacket[]]
 
 export class AdBookRecord implements AdBookEntity {
     public id: string;

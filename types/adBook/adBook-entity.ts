@@ -1,3 +1,5 @@
+import { FieldPacket } from "mysql2";
+
 export interface SimpleAdBookEntity {
     id?: string;
     isbn: string;
@@ -12,3 +14,5 @@ export interface AdBookEntity extends SimpleAdBookEntity {
     rating: string;
     description: string;
 };
+
+export type AdBookRecordResult = [AdBookEntity[], FieldPacket[]]

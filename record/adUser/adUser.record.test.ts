@@ -2,9 +2,8 @@ import { AdUserRecord } from "./adUser.record"
 import { AdUserEntity } from "../../types";
 
 // const defUser: AdUserEntity = {
-//     id: "",
-//     login: "testowy88",
-//     pass: "tajneHaslo",
+//     username: "testowy88",
+//     password: "tajneHaslo",
 //     passwordHash: "",
 //     firstName: "Tester",
 //     email: "testowy22@test.pl",

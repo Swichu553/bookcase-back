@@ -6,7 +6,6 @@ export interface AdUserEntity {
     passwordHash: string | null;
     firstName: string;
     email: string;
-    booksId: string | null;
     role: string;
     isActive: boolean;
 };
