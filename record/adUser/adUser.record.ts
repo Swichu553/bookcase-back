@@ -97,7 +97,7 @@ export class AdUserRecord implements AdUserEntity {
 
     static async insertUserBook(userId: string, bookId: string): Promise<void> {
 
-        await pool.execute("INSERT INTO `user_books`(`userId`, `bookId`) VALUES(`:userId`, `:bookId`)", {
+        await pool.execute("INSERT INTO `user_books`(`userId`, `bookId`) VALUES(:userId, :bookId)", {
             userId,
             bookId,
         });
