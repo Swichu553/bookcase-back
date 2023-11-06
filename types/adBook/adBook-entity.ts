@@ -7,10 +7,10 @@ export interface SimpleAdBookEntity {
 }
 
 export interface AdBookEntity extends SimpleAdBookEntity {
-    authorId: string;
+    author: string;
     publisher: string;
     publicationDate: Date;
-    categoriesId: string;
+    categories: string;
     rating: string;
     description: string;
 };

@@ -8,14 +8,15 @@ export class AdBookRecord implements AdBookEntity {
     public id: string;
     public isbn: string;
     public title: string;
-    public authorId: string;
+    public author: string;
     public publisher: string;
-    public publicationDate: Date ;
-    public categoriesId: string;
+    public publicationDate: Date;
+    public categories: string;
     public rating: string;
     public description: string;
     constructor(obj: AdBookEntity) {
-        const { id, isbn, title, authorId, publisher, publicationDate, categoriesId, rating, description } = obj;
+        Object.assign(this, obj);
+        const { id, isbn, title, author, publisher, publicationDate, categories, rating, description } = obj;
 
         if (!isbn) {
             throw new ValidationError("Nie podano numeru ISBN książki!!");
@@ -23,15 +24,6 @@ export class AdBookRecord implements AdBookEntity {
 
         // @TODO add more validations
 
-        this.id = id;
-        this.isbn = isbn;
-        this.title = title;
-        this.authorId = authorId;
-        this.publisher = publisher;
-        this.publicationDate = publicationDate;
-        this.categoriesId = categoriesId;
-        this.rating = rating;
-        this.description = description;
     };
 
     static async getOneBook(id: string): Promise<AdBookRecord | null> {
@@ -66,7 +58,7 @@ export class AdBookRecord implements AdBookEntity {
             throw new Error('Nie można dodać istniejącego indexu');
         }
 
-        await pool.execute("INSERT INTO `books`(`id`, `isbn`, `title`, `authorId`, `publisher`, `publicationDate`, `categoriesId`, `rating`, `description`) VALUES(:id, :isbn, :title, :authorId, :publisher, :publicationDate, :categoriesId, :rating, :description )", this)
+        await pool.execute("INSERT INTO `books`(`id`, `isbn`, `title`, `author`, `publisher`, `publicationDate`, `categories`, `rating`, `description`) VALUES(:id, :isbn, :title, :author, :publisher, :publicationDate, :categories, :rating, :description )", this)
     };
 };
 
