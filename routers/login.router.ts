@@ -26,8 +26,9 @@ export const loginRouter = Router()
             const token = jwt.sign({ id: user.id, username: user.username }, process.env.SESSION_SECRET, {
                 expiresIn: '15m', // Okres ważności JWT
             });
+            const userId = user.id;
             console.log(`User ${username}, zalogowany`)
-            res.json({ token });
+            res.json({ token, userId });
         } catch (error) {
             next(error);
         }

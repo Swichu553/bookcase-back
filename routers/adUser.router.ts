@@ -3,9 +3,10 @@ import { AdUserRecord } from "../record/adUser/adUser.record";
 
 export const adUserRouter = Router()
 
-    .get('/:id/books', async (req: Request, res: Response) => {
+    .get('/:id/books/:title?', async (req: Request, res: Response) => {
         try {
-            const books = await AdUserRecord.getUserBooks(req.params.id);
+            const { id, title } = req.params
+            const books = await AdUserRecord.getUserBooks(id, title ?? '');
             res.json(books);
         } catch (error) {
             res.status(500).json({ error: 'Błąd pobierania książek użytkownika' });

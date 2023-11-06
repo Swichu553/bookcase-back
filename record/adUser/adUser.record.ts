@@ -86,12 +86,13 @@ export class AdUserRecord implements AdUserEntity {
         return this.id;
     }
 
-    static async getUserBooks(id: string): Promise<AdBookEntity[] | null> {
-        const [results] = await pool.execute("SELECT `books`.* FROM `users` JOIN `users_books` ON `users`.`id` = `users_books`.`userId` JOIN `books` ON `users_books`.`bookId` = `books`.`id` WHERE `users`.`id` = :id", {
+    static async getUserBooks(id: string, title: string): Promise<AdBookEntity[] | null> {
+        const [results] = await pool.execute("SELECT `books`.* FROM `users` JOIN `users_books` ON `users`.`id` = `users_books`.`userId` JOIN `books` ON `users_books`.`bookId` = `books`.`id` WHERE `users`.`id` = :id AND `books`.`title` LIKE :search", {
             id,
+            search: `%${title}%`,
         }) as AdBookRecordResult;
 
-        return results.length === 0 ? null
+        return results.length === 0 ? []
             : results;
     };
 

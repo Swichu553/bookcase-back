@@ -10,7 +10,7 @@ export class AdBookRecord implements AdBookEntity {
     public title: string;
     public authorId: string;
     public publisher: string;
-    public publicationDate: Date;
+    public publicationDate: Date ;
     public categoriesId: string;
     public rating: string;
     public description: string;
@@ -42,20 +42,21 @@ export class AdBookRecord implements AdBookEntity {
         return results.length === 0 ? null : new AdBookRecord(results[0]);
     };
 
-    static async getAllBooks(title: string): Promise<SimpleAdBookEntity[]> {
+    static async getAllBooks(title: string): Promise<AdBookEntity[]> {
         const [results] = await pool.execute("SELECT * FROM `books` WHERE `title` LIKE :search", {
             search: `%${title}%`,
         }) as AdBookRecordResult;
 
-        return results.map(result => {
-            const {
-                id, isbn, title,
-            } = result;
+        return results
+        // .map(result => {
+        //     const {
+        //         id, isbn, title,
+        //     } = result;
 
-            return {
-                id, isbn, title,
-            };
-        });
+        //     return {
+        //         id, isbn, title,
+        //     };
+        // });
     };
 
     async insertBook(): Promise<void> {
