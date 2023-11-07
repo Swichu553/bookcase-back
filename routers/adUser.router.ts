@@ -23,6 +23,16 @@ export const adUserRouter = Router()
 
     })
 
+    .post('/:id/book/:bookId', async (req: Request, res: Response) => {
+        try {
+            const { id, bookId } = req.params
+            const book = await AdUserRecord.insertUserBook(id, bookId);
+            res.status(200).json({ message: `Ksiązka dodana do biblioteczki użytkownika` })
+        } catch (error) {
+            res.status(500).json({ error: 'Błąd dodawania książki dla użytkownika' });
+        }
+    })
+
     .post('/', async (req: Request, res: Response) => {
         try {
             const user = new AdUserRecord(req.body);
@@ -31,4 +41,7 @@ export const adUserRouter = Router()
         } catch (error) {
             res.status(500).json({ error: 'Błąd podczas zmiany danych użytkownika.' });
         }
-    });
+    })
+
+
+

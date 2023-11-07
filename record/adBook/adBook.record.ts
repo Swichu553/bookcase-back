@@ -60,5 +60,15 @@ export class AdBookRecord implements AdBookEntity {
 
         await pool.execute("INSERT INTO `books`(`id`, `isbn`, `title`, `author`, `publisher`, `publicationDate`, `categories`, `rating`, `description`) VALUES(:id, :isbn, :title, :author, :publisher, :publicationDate, :categories, :rating, :description )", this)
     };
+
+    static async delBook(bookId: string): Promise<AdBookRecord | null> {
+        pool.execute("DELETE FROM `users_books` WHERE `bookId` = :bookId", {
+            bookId,
+        })
+        const [results] = await pool.execute("DELETE FROM `books` WHERE `id` = :bookId", {
+            bookId,
+        }) as AdBookRecordResult;
+        return results.length === 0 ? null : new AdBookRecord(results[0]);
+    };
 };
 
