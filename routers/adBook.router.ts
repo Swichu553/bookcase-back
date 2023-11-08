@@ -40,6 +40,5 @@ export const adBookRouter = Router()
             res.end;
         } catch (error) {
             res.status(500).json({ error: `Błąd usuwania książki` });
-            res.end;
         }
     });
