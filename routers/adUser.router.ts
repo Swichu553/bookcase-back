@@ -43,5 +43,12 @@ export const adUserRouter = Router()
         }
     })
 
-
-
+    .delete('/:id/book/:bookId', async (req: Request, res: Response) => {
+        try {
+            const { id, bookId } = req.params;
+            const userBook = await AdUserRecord.delUserBook(id, bookId)
+            res.status(200).json({ message: `Ksiązka usunięta poprawnie z bilbioteczki użytkownika` })
+        } catch (error) {
+            res.status(500).json({ error: 'Błąd podczas usuwania książki z bilbioteczki użytkownika.' });
+        }
+    })

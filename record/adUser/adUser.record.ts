@@ -107,5 +107,12 @@ export class AdUserRecord implements AdUserEntity {
         });
     };
 
+    static async delUserBook(userId: string, bookId: string): Promise<void> {
+
+        await pool.execute("DELETE FROM `users_books` WHERE `userId` = :userId AND `bookId` = :bookId", {
+            userId,
+            bookId,
+        });
+    };
 };
 
