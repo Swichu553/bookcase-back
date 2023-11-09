@@ -35,7 +35,7 @@ The API allows users to manage their own bookshelves by adding, deleting, and ed
 
 ## Account Overview
 
-A GET request to the `/account` endpoint enables users to view information about their accounts, such as login details, statistics, and other relevant information.
+A GET request to the `user/:id` endpoint enables users to view information about their accounts, such as login details, statistics, and other relevant information.
 
 ## JWT Token Authentication
 
