@@ -43,13 +43,6 @@ https://github.com/Swichu553/bookcase-front
 ## SQL File
 You can find the SQL file https://github.com/Swichu553/bookcase-back/tree/main/SQL
 
-## Frontend Screenshots
-![Login](https://github.com/Swichu553/bookcase-back/assets/142433450/c39e7111-d70d-46f9-b8e1-499e56dbd557)
-![MyBook](https://github.com/Swichu553/bookcase-back/assets/142433450/6b171fc7-f5f3-4cda-ae5e-ae366cd43433)
-![Search](https://github.com/Swichu553/bookcase-back/assets/142433450/494cb72a-aae2-414e-a1c4-e108ce81e052)
-![DescriptionBook](https://github.com/Swichu553/bookcase-back/assets/142433450/df652d28-ccb3-45c1-aaeb-8fe085f75779)
-
-
 # Running the Backend Application
 
 1. **Clone the Repository:**
@@ -95,3 +88,10 @@ You can find the SQL file https://github.com/Swichu553/bookcase-back/tree/main/S
 
 After completing these steps, the backend application should be running locally, and the SQL file should be imported into the database using phpMyAdmin.
 ``` ````
+
+## Frontend Screenshots
+![Login](https://github.com/Swichu553/bookcase-back/assets/142433450/c39e7111-d70d-46f9-b8e1-499e56dbd557)
+![MyBook](https://github.com/Swichu553/bookcase-back/assets/142433450/6b171fc7-f5f3-4cda-ae5e-ae366cd43433)
+![Search](https://github.com/Swichu553/bookcase-back/assets/142433450/494cb72a-aae2-414e-a1c4-e108ce81e052)
+![DescriptionBook](https://github.com/Swichu553/bookcase-back/assets/142433450/df652d28-ccb3-45c1-aaeb-8fe085f75779)
+
