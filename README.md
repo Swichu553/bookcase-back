@@ -21,10 +21,6 @@ To add a new book to the database, make a POST request to the `/book` endpoint, 
 
 To delete a book, make a DELETE request to the `/book/:id` endpoint, where `:id` is the book identifier.
 
-### Editing Books
-
-To edit information about a book, make a PUT request to the `/book/:id` endpoint, providing new data in JSON format.
-
 ### Searching for Books
 
 To search for books, make a GET request to the `book/search/:title` endpoint, providing data in JSON format.
