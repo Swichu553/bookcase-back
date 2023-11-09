@@ -52,3 +52,50 @@ You can find the SQL file https://github.com/Swichu553/bookcase-back/tree/main/S
 ![MyBook](https://github.com/Swichu553/bookcase-back/assets/142433450/6b171fc7-f5f3-4cda-ae5e-ae366cd43433)
 ![Search](https://github.com/Swichu553/bookcase-back/assets/142433450/494cb72a-aae2-414e-a1c4-e108ce81e052)
 ![DescriptionBook](https://github.com/Swichu553/bookcase-back/assets/142433450/df652d28-ccb3-45c1-aaeb-8fe085f75779)
+
+
+# Running the Backend Application
+
+1. **Clone the Repository:**
+   Clone the backend application repository to your local machine:
+   ```bash
+   git clone https://github.com/Swichu553/bookcase-back.git
+   ```
+
+2. **Install Dependencies:**
+   Navigate to the project directory and install necessary dependencies using the command:
+   ```bash
+   cd bookcase-back
+   npm install
+   ```
+
+3. **Run the Application:**
+   Start the local server on port 3001:
+   ```bash
+   ts-node index.ts
+   ```
+
+   The application will be accessible at: http://localhost:3000
+
+# Importing SQL File via phpMyAdmin
+
+1. **Open phpMyAdmin:**
+   Visit http://localhost/phpmyadmin/ in your browser.
+
+2. **Log in to phpMyAdmin:**
+   Log in to phpMyAdmin using the appropriate login credentials.
+
+3. **Choose Database:**
+   Select the database to which you want to import the SQL file.
+
+4. **"Import" Tab:**
+   Go to the "Import" tab in the top menu.
+
+5. **Choose SQL File:**
+   Click the "Choose file" button and select the bookcase.sql file from the project's local directory: '\bookcase-back\SQL'.
+
+6. **Import SQL File:**
+   Click the "Go" button to import the contents of the SQL file into the selected database.
+
+After completing these steps, the backend application should be running locally, and the SQL file should be imported into the database using phpMyAdmin.
+``` ````
