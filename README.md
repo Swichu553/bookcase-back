@@ -55,6 +55,8 @@ You can find the SQL file https://github.com/Swichu553/bookcase-back/tree/main/S
    Navigate to the project directory and install necessary dependencies using the command:
    ```bash
    cd bookcase-back
+   ```
+   ```bash
    npm install
    ```
 
