@@ -24,7 +24,7 @@ app.use(rateLimit({
 const router = Router();
 app.use('/login', loginRouter);
 app.use('/register', registerRouter);
-app.use('/', appRouter)
+app.use('/', appRouter);
 
 app.use(handleError);
 
