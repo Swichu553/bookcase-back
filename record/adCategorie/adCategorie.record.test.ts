@@ -2,7 +2,7 @@ import { AdCategoryRecord } from "./adCategorie.record"
 
 const defCat = {
     name: "Komedia",
-    description: "SMieszne książki"
+    description: "SMieszne książki",
 };
 
 test("Sprawdzenie dodawania kategori", async () => {

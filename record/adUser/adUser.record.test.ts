@@ -23,5 +23,5 @@ test("sprawdzenie pobierania usera", async () => {
     const user2 = await AdUserRecord.getOneUserId('e9dc8022-ac63-4b59-b66a-acbbdc03a1f2');
     console.log(user2);
 
-    expect(user2.username).toBe('testowy')
-})
+    expect(user2.username).toBe('testowy');
+});

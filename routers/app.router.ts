@@ -6,9 +6,9 @@ import { adCategorieRouter } from './adCategorie.router';
 import { authenticateToken } from "../controllers/authMiddleware";
 
 
-export const appRouter = Router();
+export const appRouter = Router()
 
-appRouter.use('/book', authenticateToken, adBookRouter);
-appRouter.use('/user', authenticateToken, adUserRouter);
-appRouter.use('/author', authenticateToken, adAuthorRouter);
-appRouter.use('/categorie', authenticateToken, adCategorieRouter);
+    .use('/book', authenticateToken, adBookRouter)
+    .use('/user', authenticateToken, adUserRouter)
+    .use('/author', authenticateToken, adAuthorRouter)
+    .use('/categorie', authenticateToken, adCategorieRouter);

@@ -41,8 +41,8 @@ export class AdAuthorRecord implements AdAuthorEntity {
 
             return {
                 id, firstName, lastName,
-            }
-        })
+            };
+        });
 
     };
 
@@ -56,4 +56,4 @@ export class AdAuthorRecord implements AdAuthorEntity {
         await pool.execute("INSERT INTO `authors`(`id`, `firstName`, `lastName`, `description`) VALUES(:id, :firstName, :lastName, :description)", this)
     };
 
-}
+};

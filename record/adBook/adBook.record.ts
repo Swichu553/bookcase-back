@@ -39,16 +39,7 @@ export class AdBookRecord implements AdBookEntity {
             search: `%${title}%`,
         }) as AdBookRecordResult;
 
-        return results
-        // .map(result => {
-        //     const {
-        //         id, isbn, title,
-        //     } = result;
-
-        //     return {
-        //         id, isbn, title,
-        //     };
-        // });
+        return results;
     };
 
     async insertBook(): Promise<void> {
@@ -58,7 +49,7 @@ export class AdBookRecord implements AdBookEntity {
             throw new Error('Nie można dodać istniejącego indexu');
         }
 
-        await pool.execute("INSERT INTO `books`(`id`, `isbn`, `title`, `author`, `publisher`, `publicationDate`, `categories`, `rating`, `description`) VALUES(:id, :isbn, :title, :author, :publisher, :publicationDate, :categories, :rating, :description )", this)
+        await pool.execute("INSERT INTO `books`(`id`, `isbn`, `title`, `author`, `publisher`, `publicationDate`, `categories`, `rating`, `description`) VALUES(:id, :isbn, :title, :author, :publisher, :publicationDate, :categories, :rating, :description )", this);
     };
 
     static async delBook(bookId: string): Promise<void> {
@@ -69,5 +60,4 @@ export class AdBookRecord implements AdBookEntity {
             bookId,
         });
     };
-
-}
+};

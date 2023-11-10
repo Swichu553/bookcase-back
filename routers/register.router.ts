@@ -6,9 +6,8 @@ export const registerRouter = Router()
     .post('/', async (req: Request, res: Response) => {
         try {
             const user = new AdUserRecord(req.body);
-            console.log(req.body)
             user.insertUser();
-            res.status(201).json({ message: `Użytkownik ${user.username} został dodane` })
+            res.status(201).json({ message: `Użytkownik ${user.username} został dodane` });
         } catch (error) {
             res.status(500).json({ error: 'Błąd podczas dodawania użytkownika' });
         }

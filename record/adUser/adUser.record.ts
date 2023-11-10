@@ -68,17 +68,16 @@ export class AdUserRecord implements AdUserEntity {
         }
 
         if (await this.checkUserLogin(this.username)) {
-            throw new ValidationError('Login jest już zajęty')
+            throw new ValidationError('Login jest już zajęty');
         };
 
         if (await this.checkUserEmail(this.email)) {
-            throw new ValidationError('Na podany email już istnieje konto')
+            throw new ValidationError('Na podany email już istnieje konto');
         };
 
         this.passwordHash = await hashPassword(this.password);
 
         await pool.execute("INSERT INTO `users`(`id`, `username`, `passwordHash`, `firstName`, `email`) VALUES(:id, :username, :passwordHash, :firstName, :email)", this)
-
     };
 
     async updateUser(): Promise<string> {
@@ -92,8 +91,7 @@ export class AdUserRecord implements AdUserEntity {
             search: `%${title}%`,
         }) as AdBookRecordResult;
 
-        return results.length === 0 ? []
-            : results;
+        return results.length === 0 ? [] : results;
     };
 
     static async insertUserBook(userId: string, bookId: string): Promise<void> {

@@ -27,4 +27,4 @@ test("pobranie nie istniejącej książki", async () => {
     const book = await AdBookRecord.getOneBook('555');
 
     expect(book).toBeNull();
-})
+});

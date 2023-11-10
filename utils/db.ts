@@ -9,4 +9,4 @@ export const pool = createPool({
     database: dbDatabase,
     namedPlaceholders: true,
     decimalNumbers: true,
-})
+});

@@ -6,7 +6,7 @@ export const adAuthorRouter = Router()
 
     .get('/search/:lastName?', async (req, res) => {
         const authors = await AdAuthorRecord.getAllAuthors(req.params.lastName ?? '');
-        res.json(authors)
+        res.json(authors);
     })
 
     .get(':id', async (req, res) => {

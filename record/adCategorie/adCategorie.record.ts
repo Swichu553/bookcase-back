@@ -16,7 +16,7 @@ export class AdCategoryRecord implements AdCategorieEntity {
         this.id = id;
         this.name = name;
         this.description = description;
-    }
+    };
 
     static async getOneCategorie(id: string): Promise<AdCategoryRecord | null> {
         const [results] = await pool.execute("SELECT * FROM `categories` WHERE `id` = :id", {

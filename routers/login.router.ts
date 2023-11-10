@@ -27,9 +27,9 @@ export const loginRouter = Router()
                 expiresIn: '15m', // Okres ważności JWT
             });
             const userId = user.id;
-            console.log(`User ${username}, zalogowany`)
+            console.log(`User ${username}, zalogowany`);
             res.json({ token, userId });
         } catch (error) {
             next(error);
-        }
+        };
     });

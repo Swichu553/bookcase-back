@@ -8,7 +8,7 @@ export const adBookRouter = Router()
     .get('/search/:title?', async (req, res) => {
         try {
             const books = await AdBookRecord.getAllBooks(req.params.title ?? '');
-            res.json(books)
+            res.json(books);
         } catch (error) {
             res.status(500).json({ error: 'Błąd pobierania książek' });
         }
